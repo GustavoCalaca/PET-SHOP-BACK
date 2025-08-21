@@ -22,9 +22,9 @@ export class ClienteRepository {
     //Percorrendo a lista de contato
     cliente.contato.forEach(async contato => {
         //Para cada contato vindo do postman salvar no banco
-        const queryContato = `INSERT INTO contato_cliente (nome, telefone, email)
-                              VALUES($1, $2, $3)`;
-        const vlContato = [contato.nome, contato.telefone, contato.email];
+        const queryContato = `INSERT INTO contato_cliente (nome, telefone, email, idcliente)
+                              VALUES($1, $2, $3, $4)`;
+        const vlContato = [contato.nome, contato.telefone, contato.email, idCliente];
         await pool.query(queryContato, vlContato);
 
     });
