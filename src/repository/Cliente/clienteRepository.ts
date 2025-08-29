@@ -32,9 +32,7 @@ export class ClienteRepository {
 
     console.log('Endereço salvo com sucesso:', cliente.endereco);
 
-//------ Fim de salvar endereço ------//
 
-    // Percorrendo a lista de contato
     for (const contato of cliente.contato) {
       const queryContato = `INSERT INTO contato_cliente (nome, telefone, email, idcliente)
                             VALUES($1, $2, $3, $4)`;
@@ -42,7 +40,7 @@ export class ClienteRepository {
       await pool.query(queryContato, vlContato);
     }
 
-    //------ Fim de salvar contato ------//
+    
     console.log('Cliente salvo com sucesso:', cliente);
 
   }
