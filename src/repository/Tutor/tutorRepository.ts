@@ -5,7 +5,7 @@ import { dbConfig } from '../../config/config';
 const pool = new Pool(dbConfig);
 
 export class TutorRepository {
-    public static async salvar(tutor: TutorDto): Promise<void> {
+    static async cadastrarTutor(tutor: TutorDto): Promise<void> {
         const client = await pool.connect();
         try{
             await client.query('BEGIN');
@@ -39,7 +39,7 @@ export class TutorRepository {
         }
     }
 
-        public async listar(): Promise<TutorDto[]> {
+        static async listarTutores(): Promise<TutorDto[]> {
             const result = await pool.query('SELECT * FROM tutor');
             return result.rows;
         }

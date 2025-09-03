@@ -1,5 +1,5 @@
 import { EnderecoTutorDto} from './EnderecoTutorDto';
-import { ContatoTutoDto } from './ContatoTutoDto';
+import { ContatoTutoDto } from './ContatoTutorDto';
 
 export interface TutorDto {
     nome: string;
