@@ -1,8 +1,7 @@
 import express from 'express';
 import { ClienteController } from './controller/Cliente/clienteController';
-import { ProdutoController } from './controllers/DoencaController';
-import { ProdutoController } from './controllers/ProdutoController';
-import { ServicoController } from './controllers/ServicoController';
+import { DoencaController } from './controller/Doenca/doencaController';
+
 
 const app = express();
 app.use(express.json());
@@ -12,17 +11,22 @@ app.use(express.json());
 app.post('/addcliente', ClienteController.addCliente); 
 app.get('/listCliente', ClienteController.listarClientes);
 
+// Rotas
+app.post("/addusuario", UsuarioController.addUsuario);
+app.get("/listusuario", UsuarioController.listUsuario);
+app.put("/updateusuario/:id", UsuarioController.updateUsuario);
+app.delete("/deleteusuario/:id", UsuarioController.deleteUsuario);
 
 
 
 
-app.post('/addDoenca', ClienteController.addDoenca); 
-app.get('/listDoenca', ClienteController.listarDoenca);
-app.delete('/deleteDoenca/:id', ClienteController.deletarDoenca);
-app.put('/updateDoenca/:id', ClienteController.atualizarDoenca); 
+app.post('/addDoenca', DoencaController.addDoenca); 
+app.get('/listDoenca', DoencaController.listarDoenca);
+app.delete('/deleteDoenca/:id', DoencaController.deletarDoenca);
+app.put('/updateDoenca/:id', DoencaController.atualizarDoenca); 
 
 
-app.post('/addProduto', ProdutoController.adicionarProduto);
+/*app.post('/addProduto', ProdutoController.adicionarProduto);
 app.get('/listProduto', ProdutoController.listarProdutos);
 app.delete('/deleteProduto/:id', ProdutoController.deletarProduto);
 app.put('/updateProduto/:id', ProdutoController.atualizarProduto);
@@ -32,13 +36,11 @@ app.put('/updateProduto/:id', ProdutoController.atualizarProduto);
 app.post('/addServico', ServicoController.adicionarServico);
 app.get('/listServico', ServicoController.listarServicos);
 app.delete('/deleteServico/:id', ServicoController.deletarServico);
-app.put('/updateServico/:id', ServicoController.atualizarServico);
+app.put('/updateServico/:id', ServicoController.atualizarServico);*/
 
  
 
 
-app.listen(3000, () => {
-  console.log('Servidor rodando na porta 3000');
-});
+const PORT = 3000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 
-console.log('Projeto Node.js com TypeScript configurado com sucesso!');

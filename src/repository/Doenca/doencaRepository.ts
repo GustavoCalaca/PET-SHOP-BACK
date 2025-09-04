@@ -1,13 +1,13 @@
 import { Pool } from 'pg';
-import { DoencaDto } from '../../controller/Doenca/Dto/DoencaDto';
 import { dbConfig } from '../../config/config';
+import { DoencaDTO } from '../../controller/Doenca/Dto/Dtodoenca';
 
 const pool = new Pool(dbConfig);
 
 export class DoencaRepository {
 
  
-  static async salvar(doenca: DoencaDto): Promise<void> {
+  static async salvar(doenca: DoencaDTO): Promise<void> {
     const query = `
       INSERT INTO doencas (nome, caracteristica)
       VALUES ($1, $2) RETURNING id
@@ -24,14 +24,14 @@ export class DoencaRepository {
   }
 
  
-  static async listar(): Promise<DoencaDto[]> {
+  static async listar(): Promise<DoencaDTO[]> {
     const query = 'SELECT * FROM doencas';
     const result = await pool.query(query);
     return result.rows;
   }
 
  
-  static async atualizar(id: string, dadosAtualizados: Partial<DoencaDto>): Promise<DoencaDto | null> {
+  static async atualizar(id: number, dadosAtualizados: Partial<DoencaDTO>): Promise<DoencaDTO | null> {
     const query = `
       UPDATE doencas
       SET nome = $1, caracteristica = $2
@@ -39,7 +39,7 @@ export class DoencaRepository {
     `;
     const values = [
       dadosAtualizados.nome,
-      dadosAtualizados.caracteristica
+      dadosAtualizados.caracteristica,
   
       id
     ];
@@ -48,8 +48,8 @@ export class DoencaRepository {
   }
 
 
-  static async deletar(id: string): Promise<boolean> {
+  static async deletar(id: number): Promise<void> {
     const result = await pool.query('DELETE FROM doencas WHERE id = $1', [id]);
-    return result.rowCount > 0;
+    
   }
 }
