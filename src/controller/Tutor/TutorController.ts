@@ -16,7 +16,7 @@ export class TutorController {
         
       }
     
-      public static async listarTutor(req: Request, res: Response) {
+      public static async listarTutores(req: Request, res: Response) {
     
         const tutor = TutorService.listarTutores();
     
