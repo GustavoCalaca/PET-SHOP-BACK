@@ -6,7 +6,6 @@ const pool = new Pool(dbConfig);
 
 export class ServicoRepository {
 
-
   static async salvar(servico: ServicoDto): Promise<void> {
     const query = `
       INSERT INTO servicos (nome, descricao, preco, duracao)
@@ -24,15 +23,13 @@ export class ServicoRepository {
     console.log('Serviço salvo com sucesso:', servico.nome);
   }
 
-
   static async listar(): Promise<ServicoDto[]> {
     const query = 'SELECT * FROM servicos';
     const result = await pool.query(query);
     return result.rows;
   }
 
-
-  static async atualizar(id: string, dadosAtualizados: Partial<ServicoDto>): Promise<ServicoDto | null> {
+  static async atualizar(id: number, dadosAtualizados: Partial<ServicoDto>): Promise<ServicoDto | null> {
     const query = `
       UPDATE servicos
       SET nome = $1, descricao = $2, preco = $3, duracao = $4
@@ -49,9 +46,8 @@ export class ServicoRepository {
     return result.rows[0] || null;
   }
 
- 
-  static async deletar(id: string): Promise<boolean> {
-    const result = await pool.query('DELETE FROM servicos WHERE id = $1', [id]);
-    return result.rowCount > 0;
+  static async deletar(id: number): Promise<void> {
+    await pool.query('DELETE FROM servicos WHERE id = $1', [id]);
+    console.log(`Serviço com ID ${id} deletado.`);
   }
 }
