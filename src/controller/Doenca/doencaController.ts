@@ -1,6 +1,4 @@
-
 import { Request, Response } from 'express';
-import { ClienteService } from '../../service/Cliente/clienteService';
 import { DoencaService } from '../../service/Doenca/doencaService';
 
 export class DoencaController {

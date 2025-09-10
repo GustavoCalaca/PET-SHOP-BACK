@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
-import { ServicoDto } from '../../controller/Servico/Dto/ServicoDto';
 import { dbConfig } from '../../config/config';
+import { ServicoDto } from '../../controller/Servico/Dto/Dtoservico';
 
 const pool = new Pool(dbConfig);
 

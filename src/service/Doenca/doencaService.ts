@@ -1,4 +1,3 @@
-import { promises } from "dns";
 import { DoencaRepository } from "../../repository/Doenca/doencaRepository";
 import { DoencaDTO } from "../../controller/Doenca/Dto/Dtodoenca";
 
