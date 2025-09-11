@@ -1,7 +1,10 @@
 import { DoencaRepository } from "../../repository/Doenca/doencaRepository";
-import { DoencaDTO } from "../../controller/Doenca/Dto/Dtodoenca";
+import { DoencaDTO } from "../../controller/Doenca/Dto/DoencaDto";
 
 export class DoencaService {
+  static alterar(id: number, dados: any) {
+    throw new Error('Method not implemented.');
+  }
 
   static async cadastrarDoenca(doenca: DoencaDTO): Promise<DoencaDTO> {
     try {
@@ -14,22 +17,22 @@ export class DoencaService {
     }
   }
 
-  static async listarDoencas(): Promise<DoencaDTO[]> {
+  static async listarDoenca(): Promise<DoencaDTO[]> {
     try {
-      const doencas = await DoencaRepository.listar();
-      console.log('Lista de doenças:', doencas);
-      return doencas;
+      const doenca = await DoencaRepository.listar();
+      console.log('Lista de doença:', doenca);
+      return doenca;
     } catch (error) {
-      console.error('Erro ao listar doenças:', error);
+      console.error('Erro ao listar doença:', error);
       throw error;
     }
   }
 
-  static async atualizarDoenca(id: number, dadosAtualizados: Partial<DoencaDTO>): Promise<DoencaDTO | null> {
+  static async alterarDoenca(id: number, dadosAtualizados: Partial<DoencaDTO>): Promise<DoencaDTO | null> {
     try {
-      const doencaAtualizada = await DoencaRepository.atualizar(id, dadosAtualizados);
-      console.log('Doença atualizada:', doencaAtualizada);
-      return doencaAtualizada;
+      const doencaAlterar = await DoencaRepository.alterar(id, dadosAtualizados);
+      console.log('Doença atualizada:', doencaAlterar);
+      return doencaAlterar;
     } catch (error) {
       console.error('Erro ao atualizar doença:', error);
       throw error;

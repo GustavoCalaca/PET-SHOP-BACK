@@ -1,9 +1,11 @@
+import { ServicoDto } from "../../controller/Servico/Dto/ServicoDto";
 import { ServicoRepository } from "../../repository/Servico/servicoRepository";
-import { ServicoDTO } from "../../controller/Servico/Dto/Dtoservico";
+
+
 
 export class ServicoService {
 
-  static async cadastrarServico(servico: ServicoDTO): Promise<ServicoDTO> {
+  static async cadastrarServico(servico: ServicoDto): Promise<ServicoDto> {
     try {
       console.log('Serviço cadastrado:', servico);
       await ServicoRepository.salvar(servico);
@@ -14,7 +16,7 @@ export class ServicoService {
     }
   }
 
-  static async listarServicos(): Promise<ServicoDTO[]> {
+  static async listarServicos(): Promise<ServicoDto[]> {
     try {
       const servicos = await ServicoRepository.listar();
       console.log('Lista de serviços:', servicos);
@@ -25,7 +27,7 @@ export class ServicoService {
     }
   }
 
-  static async atualizarServico(id: number, dadosAtualizados: Partial<ServicoDTO>): Promise<ServicoDTO | null> {
+  static async atualizarServico(id: number, dadosAtualizados: Partial<ServicoDto>): Promise<ServicoDto | null> {
     try {
       const servicoAtualizado = await ServicoRepository.atualizar(id, dadosAtualizados);
       console.log('Serviço atualizado:', servicoAtualizado);

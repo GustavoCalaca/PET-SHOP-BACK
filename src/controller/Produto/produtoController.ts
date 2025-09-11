@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ProdutoService } from '../../service/Produto/produtoService';
-import { produtoDto } from "./Dto/Dtoproduto";
+
 
 
 export class ProdutoController {

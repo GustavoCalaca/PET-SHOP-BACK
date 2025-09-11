@@ -2,6 +2,7 @@ import { Pool } from 'pg';
 import { dbConfig } from '../../config/config';
 import { ProdutoDto } from '../../controller/Produto/Dto/ProdutoDto';
 
+
 const pool = new Pool(dbConfig);
 
 export class ProdutoRepository {

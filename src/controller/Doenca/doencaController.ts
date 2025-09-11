@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { DoencaService } from '../../service/Doenca/doencaService';
-import { DoencaDto } from "./Dto/Dtodoenca";
 
 export class DoencaController {
 
@@ -17,25 +16,37 @@ export class DoencaController {
 
   public static async listarDoenca(req: Request, res: Response) {
     try {
-      const doencas = await DoencaService.listarDoencas();
-      return res.status(200).json(doencas);
+      const doenca = await DoencaService.listarDoenca();
+      return res.status(200).json(doenca);
     } catch (error) {
-      console.error('Erro ao listar doenças:', error);
-      return res.status(500).json({ message: 'Erro ao listar doenças.' });
+      console.error('Erro ao listar doença:', error);
+      return res.status(500).json({ message: 'Erro ao listar doença.' });
     }
   }
 
-  public static async atualizarDoenca(req: Request, res: Response) {
-    try {
-      const { id } = req.params;
-      const dadosAtualizados = req.body;
-      const doencaAtualizada = await DoencaService.atualizarDoenca(id ? parseInt(id) : 0, dadosAtualizados);
-      return res.status(200).json({ message: 'Doença atualizada com sucesso!', doenca: doencaAtualizada });
-    } catch (error) {
-      console.error('Erro ao atualizar doença:', error);
-      return res.status(500).json({ message: 'Erro ao atualizar doença.' });
-    }
+  
+
+public static async alterarDoenca(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+    const dadosAlterados = req.body;
+
+    const doencaAlterada = await DoencaService.alterarDoenca(id ? parseInt(id) : 0, dadosAlterados);
+
+    return res.status(200).json({
+      message: 'Doença alterada com sucesso!',
+      doenca: doencaAlterada
+    });
+  } catch (error) {
+    console.error('Erro ao alterar doença:', error);
+    return res.status(500).json({ message: 'Erro ao alterar doença.' });
   }
+}
+
+
+
+
+
 
   public static async deletarDoenca(req: Request, res: Response) {
     try {

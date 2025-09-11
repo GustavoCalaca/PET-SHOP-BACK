@@ -1,9 +1,9 @@
 import { ProdutoRepository } from "../../repository/Produto/produtoRepository";
-import { ProdutoDTO } from "../../controller/Produto/Dto/Dtoproduto";
+import { ProdutoDto } from "../../controller/Produto/Dto/ProdutoDto";
 
 export class ProdutoService {
 
-  static async cadastrarProduto(produto: ProdutoDTO): Promise<ProdutoDTO> {
+  static async cadastrarProduto(produto: ProdutoDto): Promise<ProdutoDto> {
     try {
       console.log('Produto cadastrado:', produto);
       await ProdutoRepository.salvar(produto);
@@ -14,7 +14,7 @@ export class ProdutoService {
     }
   }
 
-  static async listarProdutos(): Promise<ProdutoDTO[]> {
+  static async listarProdutos(): Promise<ProdutoDto[]> {
     try {
       const produtos = await ProdutoRepository.listar();
       console.log('Lista de produtos:', produtos);
@@ -25,7 +25,7 @@ export class ProdutoService {
     }
   }
 
-  static async atualizarProduto(id: number, dadosAtualizados: Partial<ProdutoDTO>): Promise<ProdutoDTO | null> {
+  static async atualizarProduto(id: number, dadosAtualizados: Partial<ProdutoDto>): Promise<ProdutoDto | null> {
     try {
       const produtoAtualizado = await ProdutoRepository.atualizar(id, dadosAtualizados);
       console.log('Produto atualizado:', produtoAtualizado);

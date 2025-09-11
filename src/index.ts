@@ -2,6 +2,8 @@ import express from 'express';
 import { UsuarioController } from './controller/Usuario/UsuarioController';
 import { ClienteController } from './controller/Cliente/clienteController';
 import { DoencaController } from './controller/Doenca/doencaController';
+import { ServicoController } from './controller/Servico/servicoController';
+import { ProdutoController } from './controller/Produto/produtoController';
 
 const app = express();
 app.use(express.json());
@@ -15,10 +17,12 @@ app.get('/listCliente', ClienteController.listarClientes);
 app.post('/addDoenca', DoencaController.addDoenca); 
 app.get('/listDoenca', DoencaController.listarDoenca);
 app.delete('/deleteDoenca/:id', DoencaController.deletarDoenca);
-app.put('/updateDoenca/:id', DoencaController.atualizarDoenca); 
+app.put('/alterardoenca/:id', DoencaController.alterarDoenca);
 
 
-/*app.post('/addProduto', ProdutoController.adicionarProduto);
+
+
+app.post('/addProduto', ProdutoController.adicionarProduto);
 app.get('/listProduto', ProdutoController.listarProdutos);
 app.delete('/deleteProduto/:id', ProdutoController.deletarProduto);
 app.put('/updateProduto/:id', ProdutoController.atualizarProduto);
@@ -27,7 +31,7 @@ app.put('/updateProduto/:id', ProdutoController.atualizarProduto);
 app.post('/addServico', ServicoController.adicionarServico);
 app.get('/listServico', ServicoController.listarServicos);
 app.delete('/deleteServico/:id', ServicoController.deletarServico);
-app.put('/updateServico/:id', ServicoController.atualizarServico);*/
+app.put('/updateServico/:id', ServicoController.atualizarServico);
 
 
 
