@@ -3,10 +3,10 @@ import { ProdutoDto } from "../../controller/Produto/Dto/ProdutoDto";
 
 export class ProdutoService {
 
-  static async cadastrarProduto(produto: ProdutoDto): Promise<ProdutoDto> {
+  static async addProduto(produto: ProdutoDto): Promise<ProdutoDto> {
     try {
       console.log('Produto cadastrado:', produto);
-      await ProdutoRepository.salvar(produto);
+      await ProdutoRepository.add(produto);
       return produto;
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
@@ -14,20 +14,20 @@ export class ProdutoService {
     }
   }
 
-  static async listarProdutos(): Promise<ProdutoDto[]> {
+  static async listarProduto(): Promise<ProdutoDto[]> {
     try {
       const produtos = await ProdutoRepository.listar();
-      console.log('Lista de produtos:', produtos);
+      console.log('Lista de produto:', produtos);
       return produtos;
     } catch (error) {
-      console.error('Erro ao listar produtos:', error);
+      console.error('Erro ao listar produto:', error);
       throw error;
     }
   }
 
-  static async atualizarProduto(id: number, dadosAtualizados: Partial<ProdutoDto>): Promise<ProdutoDto | null> {
+  static async alterarProduto(id: number, dadosAtualizados: Partial<ProdutoDto>): Promise<ProdutoDto | null> {
     try {
-      const produtoAtualizado = await ProdutoRepository.atualizar(id, dadosAtualizados);
+      const produtoAtualizado = await ProdutoRepository.alterar(id, dadosAtualizados);
       console.log('Produto atualizado:', produtoAtualizado);
       return produtoAtualizado;
     } catch (error) {

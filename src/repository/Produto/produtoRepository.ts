@@ -7,9 +7,9 @@ const pool = new Pool(dbConfig);
 
 export class ProdutoRepository {
 
-  static async salvar(produto: ProdutoDto): Promise<void> {
+  static async add(produto: ProdutoDto): Promise<void> {
     const query = `
-      INSERT INTO produtos (nome, descricao, preco)
+      INSERT INTO produto (nome, descricao, preco)
       VALUES ($1, $2, $3) RETURNING id
     `;
     const values = [
@@ -24,14 +24,14 @@ export class ProdutoRepository {
   }
 
   static async listar(): Promise<ProdutoDto[]> {
-    const query = 'SELECT * FROM produtos';
+    const query = 'SELECT * FROM produto';
     const result = await pool.query(query);
     return result.rows;
   }
 
-  static async atualizar(id: number, dadosAtualizados: Partial<ProdutoDto>): Promise<ProdutoDto | null> {
+  static async alterar(id: number, dadosAtualizados: Partial<ProdutoDto>): Promise<ProdutoDto | null> {
     const query = `
-      UPDATE produtos
+      UPDATE produto
       SET nome = $1, descricao = $2, preco = $3
       WHERE id = $4 RETURNING *
     `;
@@ -46,7 +46,7 @@ export class ProdutoRepository {
   }
 
   static async deletar(id: number): Promise<void> {
-    await pool.query('DELETE FROM produtos WHERE id = $1', [id]);
+    await pool.query('DELETE FROM produto WHERE id = $1', [id]);
     console.log(`Produto com ID ${id} deletado.`);
   }
 }

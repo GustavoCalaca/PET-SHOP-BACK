@@ -22,10 +22,10 @@ app.put('/alterardoenca/:id', DoencaController.alterarDoenca);
 
 
 
-app.post('/addProduto', ProdutoController.adicionarProduto);
+app.post('/addProduto', ProdutoController.addProduto);
 app.get('/listProduto', ProdutoController.listarProdutos);
 app.delete('/deleteProduto/:id', ProdutoController.deletarProduto);
-app.put('/updateProduto/:id', ProdutoController.atualizarProduto);
+app.put('/updateProduto/:id', ProdutoController.alterarProduto);
 
 
 app.post('/addServico', ServicoController.adicionarServico);
