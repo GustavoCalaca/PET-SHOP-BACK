@@ -16,9 +16,9 @@ export class ProdutoService {
 
   static async listarProduto(): Promise<ProdutoDto[]> {
     try {
-      const produtos = await ProdutoRepository.listar();
-      console.log('Lista de produto:', produtos);
-      return produtos;
+      const produto = await ProdutoRepository.listar();
+      console.log('Lista de produto:', produto);
+      return produto;
     } catch (error) {
       console.error('Erro ao listar produto:', error);
       throw error;

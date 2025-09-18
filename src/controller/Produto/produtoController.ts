@@ -16,10 +16,10 @@ export class ProdutoController {
     }
   }
 
-  public static async listarProdutos(req: Request, res: Response) {
+  public static async listarProduto(req: Request, res: Response) {
     try {
-      const produtos = await ProdutoService.listarProduto();
-      return res.status(200).json(produtos);
+      const produto = await ProdutoService.listarProduto();
+      return res.status(200).json(produto);
     } catch (error) {
       console.error('Erro ao listar produtos:', error);
       return res.status(500).json({ message: 'Erro ao listar produto.' });

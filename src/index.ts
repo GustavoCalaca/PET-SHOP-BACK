@@ -23,7 +23,7 @@ app.put('/alterardoenca/:id', DoencaController.alterarDoenca);
 
 
 app.post('/addProduto', ProdutoController.addProduto);
-app.get('/listProduto', ProdutoController.listarProdutos);
+app.get('/listProduto', ProdutoController.listarProduto);
 app.delete('/deleteProduto/:id', ProdutoController.deletarProduto);
 app.put('/updateProduto/:id', ProdutoController.alterarProduto);
 
