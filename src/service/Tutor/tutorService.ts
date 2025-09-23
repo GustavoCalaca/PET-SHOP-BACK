@@ -1,13 +1,13 @@
 import { TutorDto} from '../../controller/Tutor/Dto/TutorDto';
-import { TutorRepository} from '../../repository/Tutor/TutorRepository';
+import { TutorRepository} from '../../repository/Tutor/tutorRepository';
 
 export class tutorService {
-    public static async cadastrarTutor(tutor: TutorDto) {
+    public static async addTutor(tutor: TutorDto) {
         console.log('Tutor cadastrado com sucesso', tutor);
-        return await TutorRepository.salvar(tutor);
+        return await TutorRepository.addTutor(tutor);
     }
 
-    public static async listarTutores() {
-        return await TutorRepository.listar();
+    public static async listarTutor() {
+        return await TutorRepository.listarTutor();
     }
 }

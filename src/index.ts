@@ -4,6 +4,7 @@ import { ClienteController } from './controller/Cliente/clienteController';
 import { DoencaController } from './controller/Doenca/doencaController';
 import { ServicoController } from './controller/Servico/servicoController';
 import { ProdutoController } from './controller/Produto/produtoController';
+import { TutorController } from './controller/Tutor/TutorController';
 
 const app = express();
 app.use(express.json());
@@ -19,8 +20,8 @@ app.get('/listDoenca', DoencaController.listarDoenca);
 app.delete('/deleteDoenca/:id', DoencaController.deletarDoenca);
 app.put('/alterardoenca/:id', DoencaController.alterarDoenca);
 
-
-
+app.post('/addTutor', TutorController.addTutor); 
+app.get('/listTutor', TutorController.listarTutor); 
 
 app.post('/addProduto', ProdutoController.addProduto);
 app.get('/listProduto', ProdutoController.listarProduto);
