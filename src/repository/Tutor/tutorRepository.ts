@@ -25,7 +25,13 @@ export class TutorRepository {
             const insertContato = 'INSERT INTO Contato_tutor (nome, telefone, email, idtutor) VALUES ($1, $2, $3, $4)';
             for(const contato of tutor.contatos) {
                 await client.query(insertContato, [contato.nome, contato.telefone, contato.email, tutorId]);
-            }
+            };
+
+            const insertPet = 'INSERT INTO Pet (nome, raca, peso, idade, porte, tipo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
+
+            await client.query(insertPet,[
+                tutor.pet.nome, tutor.pet.raca, tutor.pet.peso, tutor.pet.idade, tutor.pet.porte, tutor.pet.tipo,
+            ]);
             
             console.log('Tutor salvo com sucesso!');
         } catch (error) {

@@ -15,7 +15,7 @@ export class tutorService {
         return await TutorRepository.updateTutor(id, tutor);
     }
 
-    public static async deleteTutor(id: number) {
+    public static async deletarTutor(id: number) {
         return await TutorRepository.deleteTutor(id);
     }
 }

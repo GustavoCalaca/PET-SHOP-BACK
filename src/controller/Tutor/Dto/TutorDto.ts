@@ -1,5 +1,6 @@
 import { EnderecoTutorDto} from './EnderecoTutorDto';
 import { ContatoTutoDto } from './ContatoTutoDto';
+import { PetTutorDto } from './PetTutorDto';
 
 export interface TutorDto {
     nome: string;
@@ -10,5 +11,5 @@ export interface TutorDto {
     data_nascimento: Date;
     endereco: EnderecoTutorDto;
     contatos: ContatoTutoDto[];
-
+    pet: PetTutorDto;
 }

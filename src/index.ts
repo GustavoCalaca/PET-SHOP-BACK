@@ -22,6 +22,8 @@ app.put('/alterardoenca/:id', DoencaController.alterarDoenca);
 
 app.post('/addTutor', TutorController.addTutor); 
 app.get('/listTutor', TutorController.listarTutor); 
+app.put('/updateTutor/:id', TutorController.alterarTutor);
+app.delete('/deleteTutor/:id', TutorController.deletarTutor);
 
 app.post('/addProduto', ProdutoController.addProduto);
 app.get('/listProduto', ProdutoController.listarProduto);
