@@ -6,4 +6,5 @@ export interface PetTutorDto{
     porte: string;
     genero: string;
     tipo: string;
+    idtutor: string;
 }

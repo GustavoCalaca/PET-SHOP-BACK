@@ -27,11 +27,12 @@ export class TutorRepository {
                 await client.query(insertContato, [contato.nome, contato.telefone, contato.email, tutorId]);
             };
 
-            const insertPet = 'INSERT INTO Pet (nome, raca, peso, idade, porte, tipo) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
-
+            const insertPet = 'INSERT INTO Pet (nome, raca, peso, idade, porte, genero, tipo, idtutor) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
+            for(const pet of tutor.pet){
             await client.query(insertPet,[
-                tutor.pet.nome, tutor.pet.raca, tutor.pet.peso, tutor.pet.idade, tutor.pet.porte, tutor.pet.tipo,
-            ]);
+            pet.nome, pet.raca, pet.peso, pet.idade, pet.porte, pet.genero, pet.tipo, pet.idtutor
+            ])
+        };
             
             console.log('Tutor salvo com sucesso!');
         } catch (error) {

@@ -11,5 +11,5 @@ export interface TutorDto {
     data_nascimento: Date;
     endereco: EnderecoTutorDto;
     contatos: ContatoTutoDto[];
-    pet: PetTutorDto;
+    pet: PetTutorDto[];
 }
