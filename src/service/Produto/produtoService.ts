@@ -1,29 +1,48 @@
-import { ProdutoDto } from "../../controller/Produto/Dto/ProdutoDto";
 import { ProdutoRepository } from "../../repository/Produto/produtoRepository";
+import { ProdutoDto } from "../../controller/Produto/Dto/ProdutoDto";
 
 export class ProdutoService {
 
-  static cadastrarProduto(produto: ProdutoDto) {
-    console.log('Produto cadastrado:', produto);
-    ProdutoRepository.salvar(produto);
-    return produto;
+  static async addProduto(produto: ProdutoDto): Promise<ProdutoDto> {
+    try {
+      console.log('Produto cadastrado:', produto);
+      await ProdutoRepository.add(produto);
+      return produto;
+    } catch (error) {
+      console.error('Erro ao cadastrar produto:', error);
+      throw error;
+    }
   }
 
-  static listarProdutos(): ProdutoDto[] {
-    const produtos = ProdutoRepository.listarTodos();
-    console.log('Lista de produtos:', produtos);
-    return produtos;
+  static async listarProduto(): Promise<ProdutoDto[]> {
+    try {
+      const produto = await ProdutoRepository.listar();
+      console.log('Lista de produto:', produto);
+      return produto;
+    } catch (error) {
+      console.error('Erro ao listar produto:', error);
+      throw error;
+    }
   }
 
-  static atualizarProduto(id: string, dadosAtualizados: Partial<ProdutoDto>): ProdutoDto | null {
-    const produtoAtualizado = ProdutoRepository.atualizar(id, dadosAtualizados);
-    console.log('Produto atualizado:', produtoAtualizado);
-    return produtoAtualizado;
+  static async alterarProduto(id: number, dadosAtualizados: Partial<ProdutoDto>): Promise<ProdutoDto | null> {
+    try {
+      const produtoAtualizado = await ProdutoRepository.alterar(id, dadosAtualizados);
+      console.log('Produto atualizado:', produtoAtualizado);
+      return produtoAtualizado;
+    } catch (error) {
+      console.error('Erro ao atualizar produto:', error);
+      throw error;
+    }
   }
 
-  static deletarProduto(id: string): boolean {
-    const sucesso = ProdutoRepository.deletar(id);
-    console.log(`Produto com ID ${id} deletado:`, sucesso);
-    return sucesso;
+  static async deletarProduto(id: number): Promise<void> {
+    try {
+      const sucesso = await ProdutoRepository.deletar(id);
+      console.log(`Produto com ID ${id} deletado:`, sucesso);
+    } catch (error) {
+      console.error('Erro ao deletar produto:', error);
+      throw error;
+    }
   }
 }

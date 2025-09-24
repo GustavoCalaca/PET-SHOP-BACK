@@ -1,50 +1,43 @@
 import express from 'express';
+import { UsuarioController } from './controller/Usuario/UsuarioController';
 import { ClienteController } from './controller/Cliente/clienteController';
 import { DoencaController } from './controller/Doenca/doencaController';
-
+import { ServicoController } from './controller/Servico/servicoController';
+import { ProdutoController } from './controller/Produto/produtoController';
 import { TutorController } from './controller/Tutor/TutorController';
 
 const app = express();
 app.use(express.json());
 
-
 //CRUD Create, Read, Update, Delete 
 app.post('/addcliente', ClienteController.addCliente); 
 app.get('/listCliente', ClienteController.listarClientes);
 
-// Rotas
-app.post("/addusuario", UsuarioController.addUsuario);
-app.get("/listusuario", UsuarioController.listUsuario);
-app.put("/updateusuario/:id", UsuarioController.updateUsuario);
-app.delete("/deleteusuario/:id", UsuarioController.deleteUsuario);
-
-
-
-
 app.post('/addDoenca', DoencaController.addDoenca); 
 app.get('/listDoenca', DoencaController.listarDoenca);
 app.delete('/deleteDoenca/:id', DoencaController.deletarDoenca);
-app.put('/updateDoenca/:id', DoencaController.atualizarDoenca); 
+app.put('/alterardoenca/:id', DoencaController.alterarDoenca);
 
-app.post('/aatutor', TutorController.addTutor);
-app.get('/listTutores', TutorController.listarTutores)
+app.post('/addTutor', TutorController.addTutor); 
+app.get('/listTutor', TutorController.listarTutor); 
+app.put('/updateTutor/:id', TutorController.alterarTutor);
+app.delete('/deleteTutor/:id', TutorController.deletarTutor);
 
-
-/*app.post('/addProduto', ProdutoController.adicionarProduto);
-app.get('/listProduto', ProdutoController.listarProdutos);
+app.post('/addProduto', ProdutoController.addProduto);
+app.get('/listProduto', ProdutoController.listarProduto);
 app.delete('/deleteProduto/:id', ProdutoController.deletarProduto);
-app.put('/updateProduto/:id', ProdutoController.atualizarProduto);
-
-
+app.put('/updateProduto/:id', ProdutoController.alterarProduto);
 
 app.post('/addServico', ServicoController.adicionarServico);
-app.get('/listServico', ServicoController.listarServicos);
+app.get('/listServico', ServicoController.listarServico);
 app.delete('/deleteServico/:id', ServicoController.deletarServico);
-app.put('/updateServico/:id', ServicoController.atualizarServico);*/
+app.put('/updateServico/:id', ServicoController.atualizarServico);
 
+app.post('/addusuario', UsuarioController.addUsuario);
+app.get('/listusuario', UsuarioController.listarUsuario);
+app.put('/updateusuario/:id', UsuarioController.atualizarUsuario);
+app.delete('/deleteusuario/:id', UsuarioController.deletarUsuario);
  
-
-
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 

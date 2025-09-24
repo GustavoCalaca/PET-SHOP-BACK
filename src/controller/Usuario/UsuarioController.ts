@@ -1,13 +1,43 @@
 import { Request, Response } from "express";
-import { criarUsuarioService } from "../service/usuarioService";
-import { Usuario } from "../types";
+import { UsuarioService } from "../../service/Usuario/UsuarioService";
+import { UsuarioDto } from "./Dto/UsuarioDto";
 
-export const addUsuario = async (req: Request, res: Response) => {
-  try {
-    const usuario: Usuario = req.body;
-    const novoUsuario = await criarUsuarioService(usuario);
-    res.status(201).json(novoUsuario);
-  } catch (err: any) {
-    res.status(500).json(Usuario);
+export class UsuarioController {
+  static async addUsuario(req: Request, res: Response) {
+    try {
+      const novoUsuario = await UsuarioService.addUsuario(req.body as UsuarioDto);
+      res.status(201).json(novoUsuario);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Erro ao adicionar usuário" });
+    }
   }
-};
+
+  static async listarUsuario(req: Request, res: Response) {
+    try {
+      res.json(await UsuarioService.listarUsuario());
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Erro ao listar usuários" });
+    }
+  }
+
+  static async atualizarUsuario(req: Request, res: Response) {
+    try {
+      const usuario = await UsuarioService.atualizarUsuario(Number(req.params.id), req.body);
+      res.json(usuario);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Erro ao atualizar usuário" });
+    }
+  }
+
+  static async deletarUsuario(req: Request, res: Response) {
+    try {
+      const deletado = await UsuarioService.deletarUsuario(Number(req.params.id));
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Erro ao deletar usuário" });
+    }
+  }
+}

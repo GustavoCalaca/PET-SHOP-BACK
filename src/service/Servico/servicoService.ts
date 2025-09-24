@@ -1,29 +1,51 @@
 import { ServicoDto } from "../../controller/Servico/Dto/ServicoDto";
 import { ServicoRepository } from "../../repository/Servico/servicoRepository";
 
+
+
 export class ServicoService {
 
-  static cadastrarServico(servico: ServicoDto) {
-    console.log('Serviço cadastrado:', servico);
-    ServicoRepository.salvar(servico);
-    return servico;
+  static async cadastrarServico(servico: ServicoDto): Promise<ServicoDto> {
+  try {
+    const novoServico = await ServicoRepository.salvar(servico);
+    console.log('Serviço cadastrado com sucesso:', novoServico);
+    return novoServico;
+  } catch (error) {
+    console.error('Erro ao cadastrar serviço:', error);
+    throw error;
+  }
+}
+
+
+  static async listarServico(): Promise<ServicoDto[]> {
+    try {
+      const servico = await ServicoRepository.listar();
+      console.log('Lista de serviço:', servico);
+      return servico;
+    } catch (error) {
+      console.error('Erro ao listar serviço:', error);
+      throw error;
+    }
   }
 
-  static listarServicos(): ServicoDto[] {
-    const servicos = ServicoRepository.listarTodos();
-    console.log('Lista de serviços:', servicos);
-    return servicos;
+  static async atualizarServico(id: number, dadosAtualizados: Partial<ServicoDto>): Promise<ServicoDto | null> {
+    try {
+      const servicoAtualizado = await ServicoRepository.atualizar(id, dadosAtualizados);
+      console.log('Serviço atualizado:', servicoAtualizado);
+      return servicoAtualizado;
+    } catch (error) {
+      console.error('Erro ao atualizar servico:', error);
+      throw error;
+    }
   }
 
-  static atualizarServico(id: string, dadosAtualizados: Partial<ServicoDto>): ServicoDto | null {
-    const servicoAtualizado = ServicoRepository.atualizar(id, dadosAtualizados);
-    console.log('Serviço atualizado:', servicoAtualizado);
-    return servicoAtualizado;
-  }
-
-  static deletarServico(id: string): boolean {
-    const sucesso = ServicoRepository.deletar(id);
-    console.log(`Serviço com ID ${id} deletado:`, sucesso);
-    return sucesso;
+  static async deletarServico(id: number): Promise<void> {
+    try {
+      const sucesso = await ServicoRepository.deletar(id);
+      console.log(`Servico com ID ${id} deletado:`, sucesso);
+    } catch (error) {
+      console.error('Erro ao deletar servico:', error);
+      throw error;
+    }
   }
 }
