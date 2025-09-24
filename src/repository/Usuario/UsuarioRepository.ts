@@ -32,31 +32,23 @@ export class UsuarioRepository {
   }
 
   static async atualizar(id: number, dados: Partial<UsuarioDto>) {
+    const entries = Object.entries(dados).filter(([, valor]) => valor !== undefined);
+    const campos = entries.map(([chave], i) => `${chave} = $${i + 1}`);
+    const valores = entries.map(([, valor]) => valor);
+
     const query = `
       UPDATE usuario
-      SET nome=$1, idade=$2, data_aniversario=$3, cpf=$4, cnpj=$5, ativo=$6,
-          email=$7, login=$8, senha=$9
-      WHERE id=$10
+      SET ${campos.join(", ")}
+      WHERE id = $${entries.length + 1}
       RETURNING *
     `;
-    const values = [
-      dados.nome ?? null,
-      dados.idade ?? null,
-      dados.dataAniversario ?? null,
-      dados.cpf ?? null,
-      dados.cnpj ?? null,
-      dados.ativo ?? true,
-      dados.email ?? null,
-      dados.login ?? null,
-      dados.senha ?? null,
-      id
-    ];
-    const result = await pool.query(query, values);
+
+    const result = await pool.query(query, [...valores, id]);
     return result.rows[0] || null;
   }
 
-  static async deletar(id: number) {
-    const result = await pool.query("DELETE FROM usuario WHERE id = $1", [id]);
-    
+  static async deletar(id: number): Promise<void> {
+    await pool.query("DELETE FROM usuario WHERE id = $1", [id]);
+    console.log(`Usuário com ID ${id} deletado.`);
   }
 }
