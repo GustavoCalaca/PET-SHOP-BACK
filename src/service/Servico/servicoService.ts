@@ -6,23 +6,24 @@ import { ServicoRepository } from "../../repository/Servico/servicoRepository";
 export class ServicoService {
 
   static async cadastrarServico(servico: ServicoDto): Promise<ServicoDto> {
+  try {
+    const novoServico = await ServicoRepository.salvar(servico);
+    console.log('Serviço cadastrado com sucesso:', novoServico);
+    return novoServico;
+  } catch (error) {
+    console.error('Erro ao cadastrar serviço:', error);
+    throw error;
+  }
+}
+
+
+  static async listarServico(): Promise<ServicoDto[]> {
     try {
-      console.log('Serviço cadastrado:', servico);
-      await ServicoRepository.salvar(servico);
+      const servico = await ServicoRepository.listar();
+      console.log('Lista de serviço:', servico);
       return servico;
     } catch (error) {
-      console.error('Erro ao cadastrar serviço:', error);
-      throw error;
-    }
-  }
-
-  static async listarServicos(): Promise<ServicoDto[]> {
-    try {
-      const servicos = await ServicoRepository.listar();
-      console.log('Lista de serviços:', servicos);
-      return servicos;
-    } catch (error) {
-      console.error('Erro ao listar serviços:', error);
+      console.error('Erro ao listar serviço:', error);
       throw error;
     }
   }
@@ -33,7 +34,7 @@ export class ServicoService {
       console.log('Serviço atualizado:', servicoAtualizado);
       return servicoAtualizado;
     } catch (error) {
-      console.error('Erro ao atualizar serviço:', error);
+      console.error('Erro ao atualizar servico:', error);
       throw error;
     }
   }
@@ -41,9 +42,9 @@ export class ServicoService {
   static async deletarServico(id: number): Promise<void> {
     try {
       const sucesso = await ServicoRepository.deletar(id);
-      console.log(`Serviço com ID ${id} deletado:`, sucesso);
+      console.log(`Servico com ID ${id} deletado:`, sucesso);
     } catch (error) {
-      console.error('Erro ao deletar serviço:', error);
+      console.error('Erro ao deletar servico:', error);
       throw error;
     }
   }

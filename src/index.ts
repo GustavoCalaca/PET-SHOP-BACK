@@ -29,7 +29,7 @@ app.put('/updateProduto/:id', ProdutoController.alterarProduto);
 
 
 app.post('/addServico', ServicoController.adicionarServico);
-app.get('/listServico', ServicoController.listarServicos);
+app.get('/listServico', ServicoController.listarServico);
 app.delete('/deleteServico/:id', ServicoController.deletarServico);
 app.put('/updateServico/:id', ServicoController.atualizarServico);
 

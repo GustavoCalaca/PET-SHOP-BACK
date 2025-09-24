@@ -5,23 +5,31 @@ import { ServicoService } from '../../service/Servico/servicoService';
 export class ServicoController {
 
   public static async adicionarServico(req: Request, res: Response) {
-    try {
-      const servico = req.body;
-      const novoServico = await ServicoService.cadastrarServico(servico);
-      return res.status(201).json({ message: 'Serviço cadastrado com sucesso!', servico: novoServico });
-    } catch (error) {
-      console.error('Erro ao cadastrar serviço:', error);
-      return res.status(500).json({ message: 'Erro ao cadastrar serviço.' });
-    }
-  }
+  try {
+    const servico = req.body;
 
-  public static async listarServicos(req: Request, res: Response) {
+    if (servico.id !== undefined) {
+      return res.status(400).json({ message: 'Não envie o campo "id". Ele é gerado automaticamente.' });
+    }
+
+    console.log('Dados recebidos para cadastro:', servico);
+
+    const novoServico = await ServicoService.cadastrarServico(servico);
+    return res.status(201).json({ message: 'Serviço cadastrado com sucesso!', servico: novoServico });
+  } catch (error) {
+    console.error('Erro ao cadastrar serviço:', error);
+    return res.status(500).json({ message: 'Erro ao cadastrar serviço.' });
+  }
+}
+
+
+  public static async listarServico(req: Request, res: Response) {
     try {
-      const servicos = await ServicoService.listarServicos();
-      return res.status(200).json(servicos);
+      const servico = await ServicoService.listarServico();
+      return res.status(200).json(servico);
     } catch (error) {
-      console.error('Erro ao listar serviços:', error);
-      return res.status(500).json({ message: 'Erro ao listar serviços.' });
+      console.error('Erro ao listar serviço:', error);
+      return res.status(500).json({ message: 'Erro ao listar serviço.' });
     }
   }
 
