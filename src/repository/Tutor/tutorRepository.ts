@@ -41,5 +41,34 @@ export class TutorRepository {
             return result.rows;
         }
 
+        public static async updateTutor(id: number, tutor: TutorDto): Promise<void> {
+            const client = await pool.connect();
+            try{
+                const updateTutor = 'UPDATE tutor SET nome = $1, cpf = $2, idade = $3, rg = $4, genero = $5, data_nascimento = $6 WHERE id = $7';
+                await client.query(updateTutor, [
+                    tutor.nome, tutor.cpf, tutor.idade, tutor.rg, tutor.genero, tutor.data_nascimento, id ]);
+                console.log('Tutor atualizado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao atualizar tutor:', error);
+                throw error;
+            } finally {
+                client.release();
+            }
+        }
+
+        public static async deleteTutor(id: number): Promise<void> {
+            const client = await pool.connect();
+            try{
+                const query = 'DELETE FROM tutor WHERE id = $1';
+                await client.query(query, [id]);
+                console.log('Tutor deletado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao deletar tutor:', error);
+                throw error;
+            } finally {
+                client.release();
+            }
+        }
+
         
     }
