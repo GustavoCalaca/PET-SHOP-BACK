@@ -1,0 +1,1 @@
+---Aqui vai os scripts SQL referente a tabela de cliente
