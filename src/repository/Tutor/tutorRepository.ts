@@ -12,7 +12,7 @@ export class TutorRepository {
             const addTutor = 'INSERT INTO tutor (nome, cpf, idade, rg, genero, data_nascimento) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id';
 
             const result = await client.query(addTutor,[
-                tutor.nome, tutor.cpf, tutor.idade, tutor.rg, tutor.genero, tutor.data_nascimento,
+                tutor.nome, tutor.cpf, tutor.idade, tutor.rg, tutor.genero, tutor.dataNascimento,
             ]);
             const tutorId = result.rows[0].id;
 
@@ -53,7 +53,7 @@ export class TutorRepository {
             try{
                 const updateTutor = 'UPDATE tutor SET nome = $1, cpf = $2, idade = $3, rg = $4, genero = $5, data_nascimento = $6 WHERE id = $7';
                 await client.query(updateTutor, [
-                    tutor.nome, tutor.cpf, tutor.idade, tutor.rg, tutor.genero, tutor.data_nascimento, id ]);
+                    tutor.nome, tutor.cpf, tutor.idade, tutor.rg, tutor.genero, tutor.dataNascimento, id ]);
                 console.log('Tutor atualizado com sucesso!');
             } catch (error) {
                 console.error('Erro ao atualizar tutor:', error);
@@ -66,8 +66,21 @@ export class TutorRepository {
         public static async deleteTutor(id: number): Promise<void> {
             const client = await pool.connect();
             try{
-                const query = 'DELETE FROM tutor WHERE id = $1';
-                await client.query(query, [id]);
+                const deleteContato = 'DELETE FROM Contato_tutor WHERE idtutor = $1';
+                await client.query(deleteContato, [id]);
+
+                const deleteEndereco = 'DELETE FROM Endereco_tutor WHERE idtutor = $1';
+                await client.query(deleteEndereco, [id]);
+
+                const deletePetDoenca = 'DELETE FROM Pet_doenca WHERE idpet = $1';
+                await client.query(deletePetDoenca, [id]);
+
+                const deletePet = 'DELETE FROM Pet WHERE idtutor = $1';
+                await client.query(deletePet, [id]);
+
+                const deleteTutor = 'DELETE FROM Tutor WHERE id = $1';
+                await client.query(deleteTutor, [id]);
+
                 console.log('Tutor deletado com sucesso!');
             } catch (error) {
                 console.error('Erro ao deletar tutor:', error);

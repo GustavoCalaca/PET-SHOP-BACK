@@ -1,5 +1,5 @@
 import { EnderecoTutorDto} from './EnderecoTutorDto';
-import { ContatoTutoDto } from './ContatoTutoDto';
+import { ContatoTutoDto } from './ContatoTutorDto';
 import { PetTutorDto } from './PetTutorDto';
 
 export interface TutorDto {
@@ -8,7 +8,7 @@ export interface TutorDto {
     idade: string;
     rg: string;
     genero: string;
-    data_nascimento: Date;
+    dataNascimento: Date;
     endereco: EnderecoTutorDto;
     contatos: ContatoTutoDto[];
     pet: PetTutorDto[];
