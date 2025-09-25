@@ -3,6 +3,13 @@ import { DoencaService } from '../../service/Doenca/doencaService';
 
 export class DoencaController {
 
+
+ /**
+  * 
+  * Ajustar o método addDoenca para não retornar nada
+
+  */
+
   public static async addDoenca(req: Request, res: Response) {
     try {
       const doenca = req.body;
