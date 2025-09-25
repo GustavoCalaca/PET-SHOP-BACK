@@ -1,7 +1,18 @@
 import {Request, Response} from 'express';
 import {tutorService} from "../../service/Tutor/tutorService";
 
+
+
+
 export class TutorController {
+
+  /**
+ *  Validar se caracteristica não é vazio
+ *  nome: string;
+    cpf: string;
+    rg: string;
+    dataNascimento: Date;
+ */
     public static async addTutor( req: Request, res: Response) {
         try {
             const tutor = req.body;
@@ -25,6 +36,13 @@ export class TutorController {
         }
       }
 
+      /**
+       *  Validar se caracteristica não é vazio
+       *  nome: string;
+          cpf: string;
+          rg: string;
+          dataNascimento: Date;
+      */
       public static async alterarTutor(req: Request, res: Response) {
         try {
           const { id } = req.params;
