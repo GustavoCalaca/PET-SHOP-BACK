@@ -14,8 +14,8 @@ export class ServicoController {
 
     console.log('Dados recebidos para cadastro:', servico);
 
-    const novoServico = await ServicoService.cadastrarServico(servico);
-    return res.status(201).json({ message: 'Serviço cadastrado com sucesso!', servico: novoServico });
+    await ServicoService.cadastrarServico(servico);
+    return res.status(201).json({ message: 'Serviço cadastrado com sucesso!', });
   } catch (error) {
     console.error('Erro ao cadastrar serviço:', error);
     return res.status(500).json({ message: 'Erro ao cadastrar serviço.' });
@@ -37,8 +37,8 @@ export class ServicoController {
     try {
       const { id } = req.params;
       const dadosAtualizados = req.body;
-      const servicoAtualizado = await ServicoService.atualizarServico(id ? parseInt(id) : 0, dadosAtualizados);
-      return res.status(200).json({ message: 'Serviço atualizado com sucesso!', servico: servicoAtualizado });
+      await ServicoService.atualizarServico(id ? parseInt(id) : 0, dadosAtualizados);
+      return res.status(200).json({ message: 'Serviço atualizado com sucesso!' });
     } catch (error) {
       console.error('Erro ao atualizar serviço:', error);
       return res.status(500).json({ message: 'Erro ao atualizar serviço.' });
