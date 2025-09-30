@@ -3,8 +3,20 @@ import { UsuarioService } from "../../service/Usuario/UsuarioService";
 import { UsuarioDto } from "./Dto/UsuarioDto";
 
 export class UsuarioController {
+
+    /**
+ *  Validações 
+      nome: string;
+      idade: number;
+      dataAniversario: string;
+      cpfCnpj: string;
+      email: string;
+      login: string;
+      senha: string;
+    */
   static async addUsuario(req: Request, res: Response) {
     try {
+      
       const novoUsuario = await UsuarioService.addUsuario(req.body as UsuarioDto);
       res.status(201).json(novoUsuario);
     } catch (err) {
@@ -22,6 +34,16 @@ export class UsuarioController {
     }
   }
 
+      /**
+     *  Validações 
+      nome: string;
+      idade: number;
+      dataAniversario: string;
+      cpfCnpj: string;
+      email: string;
+      login: string;
+      senha: string;
+    */
   static async atualizarUsuario(req: Request, res: Response) {
     try {
       const usuario = await UsuarioService.atualizarUsuario(Number(req.params.id), req.body);
@@ -32,6 +54,10 @@ export class UsuarioController {
     }
   }
 
+  /**
+   * retirar o retorno deletado por que não está sendo usado e não faz sentido
+
+   */
   static async deletarUsuario(req: Request, res: Response) {
     try {
       const deletado = await UsuarioService.deletarUsuario(Number(req.params.id));

@@ -1,6 +1,10 @@
 import { ContatoDto } from "./ContatoUsuarioDto";
 import { EnderecoDto } from "./EndereçoUsuarioDto";
 
+/**
+ * Transformar o objeto Contato em lista de contato
+ */
+
 export interface UsuarioDto {
   id: number;
   nome: string;
