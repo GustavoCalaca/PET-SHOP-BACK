@@ -8,8 +8,8 @@ export class ProdutoController {
   public static async addProduto(req: Request, res: Response) {
     try {
       const produto = req.body;
-      const novoProduto = await ProdutoService.addProduto(produto);
-      return res.status(201).json({ message: 'Produto cadastrado com sucesso!', produto: novoProduto });
+      await ProdutoService.addProduto(produto);
+      return res.status(201).json({ message: 'Produto cadastrado com sucesso!'});
     } catch (error) {
       console.error('Erro ao cadastrar produto:', error);
       return res.status(500).json({ message: 'Erro ao cadastrar produto.' });
@@ -30,8 +30,8 @@ export class ProdutoController {
     try {
       const { id } = req.params;
       const dadosAtualizados = req.body;
-      const produtoAtualizado = await ProdutoService.alterarProduto(id ? parseInt(id) : 0, dadosAtualizados);
-      return res.status(200).json({ message: 'Produto atualizado com sucesso!', produto: produtoAtualizado });
+      await ProdutoService.alterarProduto(id ? parseInt(id) : 0, dadosAtualizados);
+      return res.status(200).json({ message: 'Produto atualizado com sucesso!'});
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);
       return res.status(500).json({ message: 'Erro ao atualizar produto.' });

@@ -3,11 +3,21 @@ import { DoencaService } from '../../service/Doenca/doencaService';
 
 export class DoencaController {
 
+
+ /**
+  * 
+  * Ajustar o método addDoenca para não retornar nada
+  * 
+  * Validar se nome não é vazio 
+  * Validar se caracteristica não é vazio
+  * 
+  */
+
   public static async addDoenca(req: Request, res: Response) {
     try {
       const doenca = req.body;
-      const novaDoenca = await DoencaService.cadastrarDoenca(doenca);
-      return res.status(201).json({ message: 'Doença cadastrada com sucesso!', doenca: novaDoenca });
+     await DoencaService.cadastrarDoenca(doenca);
+      return res.status(201).json({ message: 'Doença cadastrada com sucesso!'});
     } catch (error) {
       console.error('Erro ao cadastrar doença:', error);
       return res.status(500).json({ message: 'Erro ao cadastrar doença.' });
@@ -31,19 +41,17 @@ public static async alterarDoenca(req: Request, res: Response) {
     const { id } = req.params;
     const dadosAlterados = req.body;
 
-    const doencaAlterada = await DoencaService.alterarDoenca(id ? parseInt(id) : 0, dadosAlterados);
+    await DoencaService.alterarDoenca(id ? parseInt(id) : 0, dadosAlterados);
 
     return res.status(200).json({
       message: 'Doença alterada com sucesso!',
-      doenca: doencaAlterada
+      
     });
   } catch (error) {
     console.error('Erro ao alterar doença:', error);
     return res.status(500).json({ message: 'Erro ao alterar doença.' });
   }
 }
-
-
 
 
 

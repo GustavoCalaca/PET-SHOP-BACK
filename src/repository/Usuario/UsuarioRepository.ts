@@ -5,6 +5,12 @@ import { UsuarioDto } from "../../controller/Usuario/Dto/UsuarioDto";
 const pool = new Pool(dbConfig);
 
 export class UsuarioRepository {
+
+  /**
+   * Pendencias para @William
+   * 1 - Criar o salvar neste método os dados de endereço e contato
+   */
+
   static async salvar(usuario: UsuarioDto) {
     const query = `
       INSERT INTO usuario (nome, idade, data_aniversario, cpf, cnpj, ativo, email, login, senha)
@@ -31,6 +37,10 @@ export class UsuarioRepository {
     return result.rows;
   }
 
+  /**
+   * 
+   * Criar o atualizar de contato e endereço
+   */
   static async atualizar(id: number, dados: Partial<UsuarioDto>) {
     const entries = Object.entries(dados).filter(([, valor]) => valor !== undefined);
     const campos = entries.map(([chave], i) => `${chave} = $${i + 1}`);
@@ -47,6 +57,10 @@ export class UsuarioRepository {
     return result.rows[0] || null;
   }
 
+  /**
+   * 
+   * Criar os deletes de contato e endereço
+   */
   static async deletar(id: number): Promise<void> {
     await pool.query("DELETE FROM usuario WHERE id = $1", [id]);
     console.log(`Usuário com ID ${id} deletado.`);
