@@ -9,8 +9,8 @@ export class TutorController {
             return res.status(201).json({ message: 'Tutor cadastrado com sucesso!',
             tutor: novoTutor});
         }
-        catch(error){
-            return res.status(500).json({ message: 'Tutor não cadastrado!'})
+        catch(error: any){
+            return res.status(400).json({ message: error.message })
         }
 
     }

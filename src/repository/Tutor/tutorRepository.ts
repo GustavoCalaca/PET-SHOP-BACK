@@ -30,7 +30,7 @@ export class TutorRepository {
             const insertPet = 'INSERT INTO Pet (nome, raca, peso, idade, porte, genero, tipo, idtutor) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
             for(const pet of tutor.pet){
             await client.query(insertPet,[
-            pet.nome, pet.raca, pet.peso, pet.idade, pet.porte, pet.genero, pet.tipo, pet.idtutor
+                pet.nome, pet.raca, pet.peso, pet.idade, pet.porte, pet.genero, pet.tipo, pet.idtutor
             ])
         };
             
