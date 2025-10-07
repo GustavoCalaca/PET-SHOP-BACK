@@ -6,15 +6,29 @@ import { ProdutoService } from '../../service/Produto/produtoService';
 export class ProdutoController {
 
   public static async addProduto(req: Request, res: Response) {
-    try {
-      const produto = req.body;
-      await ProdutoService.addProduto(produto);
-      return res.status(201).json({ message: 'Produto cadastrado com sucesso!'});
-    } catch (error) {
-      console.error('Erro ao cadastrar produto:', error);
-      return res.status(500).json({ message: 'Erro ao cadastrar produto.' });
+  try {
+    const { nome, descricao, preco } = req.body;
+
+    
+    if (!nome && nome.trim() === '') {
+      return res.status(400).json({ message: 'O campo "nome" é obrigatório.' });
     }
+
+    if (!descricao && descricao.trim() === '') {
+      return res.status(400).json({ message: 'O campo "descricao" é obrigatório.' });
+    }
+
+    if (preco === undefined && preco === null && isNaN(preco) && preco <= 0) {
+      return res.status(400).json({ message: 'O campo "preco" é obrigatório e deve ser um número maior que zero.' });
+    }
+
+    await ProdutoService.addProduto(req.body);
+    return res.status(201).json({ message: 'Produto cadastrado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao cadastrar produto:', error);
+    return res.status(500).json({ message: 'Erro ao cadastrar produto.' });
   }
+}
 
   public static async listarProduto(req: Request, res: Response) {
     try {
@@ -27,16 +41,30 @@ export class ProdutoController {
   }
 
   public static async alterarProduto(req: Request, res: Response) {
-    try {
-      const { id } = req.params;
-      const dadosAtualizados = req.body;
-      await ProdutoService.alterarProduto(id ? parseInt(id) : 0, dadosAtualizados);
-      return res.status(200).json({ message: 'Produto atualizado com sucesso!'});
-    } catch (error) {
-      console.error('Erro ao atualizar produto:', error);
-      return res.status(500).json({ message: 'Erro ao atualizar produto.' });
+  try {
+    const { id } = req.params;
+    const { nome, descricao, preco } = req.body;
+
+    if (!nome && nome.trim() === '') {
+      return res.status(400).json({ message: 'O campo "nome" é obrigatório.' });
     }
+
+    if (!descricao && descricao.trim() === '') {
+      return res.status(400).json({ message: 'O campo "descricao" é obrigatório.' });
+    }
+
+    if (preco === undefined && preco === null && isNaN(preco) && preco <= 0) {
+      return res.status(400).json({ message: 'O campo "preco" é obrigatório e deve ser um número maior que zero.' });
+    }
+
+    await ProdutoService.alterarProduto(id ? parseInt(id) : 0, req.body);
+    return res.status(200).json({ message: 'Produto atualizado com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao atualizar produto:', error);
+    return res.status(500).json({ message: 'Erro ao atualizar produto.' });
   }
+}
+
 
   public static async deletarProduto(req: Request, res: Response) {
     try {
