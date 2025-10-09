@@ -14,15 +14,26 @@ export class DoencaController {
   */
 
   public static async addDoenca(req: Request, res: Response) {
-    try {
-      const doenca = req.body;
-     await DoencaService.cadastrarDoenca(doenca);
-      return res.status(201).json({ message: 'Doença cadastrada com sucesso!'});
-    } catch (error) {
-      console.error('Erro ao cadastrar doença:', error);
-      return res.status(500).json({ message: 'Erro ao cadastrar doença.' });
+  try {
+    const { nome, caracteristica } = req.body;
+
+    
+    if (!nome && nome.trim() === '') {
+      return res.status(400).json({ message: 'O campo "nome" é obrigatório.' });
     }
+
+    if (!caracteristica && caracteristica.trim() === '') {
+      return res.status(400).json({ message: 'O campo "caracteristica" é obrigatório.' });
+    }
+
+    await DoencaService.cadastrarDoenca(req.body);
+    return res.status(201).json({ message: 'Doença cadastrada com sucesso!' });
+  } catch (error) {
+    console.error('Erro ao cadastrar doença:', error);
+    return res.status(500).json({ message: 'Erro ao cadastrar doença.' });
   }
+}
+
 
   public static async listarDoenca(req: Request, res: Response) {
     try {
@@ -39,13 +50,20 @@ export class DoencaController {
 public static async alterarDoenca(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const dadosAlterados = req.body;
+    const { nome, caracteristica } = req.body;
 
-    await DoencaService.alterarDoenca(id ? parseInt(id) : 0, dadosAlterados);
+    if (!nome && nome.trim() === '') {
+      return res.status(400).json({ message: 'O campo "nome" é obrigatório.' });
+    }
+
+    if (!caracteristica && caracteristica.trim() === '') {
+      return res.status(400).json({ message: 'O campo "caracteristica" é obrigatório.' });
+    }
+
+    await DoencaService.alterarDoenca(id ? parseInt(id) : 0, req.body);
 
     return res.status(200).json({
       message: 'Doença alterada com sucesso!',
-      
     });
   } catch (error) {
     console.error('Erro ao alterar doença:', error);
