@@ -4,14 +4,7 @@ import { DoencaService } from '../../service/Doenca/doencaService';
 export class DoencaController {
 
 
- /**
-  * 
-  * Ajustar o método addDoenca para não retornar nada
-  * 
-  * Validar se nome não é vazio 
-  * Validar se caracteristica não é vazio
-  * 
-  */
+
 
   public static async addDoenca(req: Request, res: Response) {
   try {

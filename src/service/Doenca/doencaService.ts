@@ -6,16 +6,28 @@ export class DoencaService {
     throw new Error('Method not implemented.');
   }
 
-  static async cadastrarDoenca(doenca: DoencaDTO): Promise<DoencaDTO> {
-    try {
-      console.log('Doença cadastrada:', doenca);
-      await DoencaRepository.salvar(doenca);
-      return doenca;
-    } catch (error) {
-      console.error('Erro ao cadastrar doença:', error);
-      throw error;
+
+
+static async cadastrarDoenca(doenca: DoencaDTO): Promise<DoencaDTO> {
+  try {
+    if (!doenca.nome || doenca.nome.trim() === '') {
+      throw new Error('O campo "nome" é obrigatório.');
     }
+
+    if (!doenca.caracteristicas || doenca.caracteristicas.trim() === '') {
+      throw new Error('O campo "caracteristica" é obrigatório.');
+    }
+
+    console.log('Doença cadastrada:', doenca);
+    await DoencaRepository.salvar(doenca);
+    return doenca;
+  } catch (error) {
+    console.error('Erro ao cadastrar doença:', error);
+    throw error;
   }
+}
+
+
 
   static async listarDoenca(): Promise<DoencaDTO[]> {
     try {
@@ -29,15 +41,24 @@ export class DoencaService {
   }
 
   static async alterarDoenca(id: number, dadosAtualizados: Partial<DoencaDTO>): Promise<DoencaDTO | null> {
-    try {
-      const doencaAlterar = await DoencaRepository.alterar(id, dadosAtualizados);
-      console.log('Doença atualizada:', doencaAlterar);
-      return doencaAlterar;
-    } catch (error) {
-      console.error('Erro ao atualizar doença:', error);
-      throw error;
+  try {
+    if ('nome' in dadosAtualizados && (!dadosAtualizados.nome || dadosAtualizados.nome.trim() === '')) {
+      throw new Error('O campo "nome" não pode ser vazio.');
     }
+
+    if ('caracteristicas' in dadosAtualizados && (!dadosAtualizados.caracteristicas || dadosAtualizados.caracteristicas.trim() === '')) {
+      throw new Error('O campo "caracteristicas" não pode ser vazio.');
+    }
+
+    const doencaAlterar = await DoencaRepository.alterar(id, dadosAtualizados);
+    console.log('Doença atualizada:', doencaAlterar);
+    return doencaAlterar;
+  } catch (error) {
+    console.error('Erro ao atualizar doença:', error);
+    throw error;
   }
+}
+
 
   static async deletarDoenca(id: number): Promise<void> {
     try {
