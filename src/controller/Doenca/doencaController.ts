@@ -60,11 +60,9 @@ public static async alterarDoenca(req: Request, res: Response) {
     });
   } catch (error) {
     console.error('Erro ao alterar doença:', error);
-    return res.status(500).json({ message: 'Erro ao alterar doença.' });
+    return res.status(500).json({ message: 'Erro ao alterar a doença.' });
   }
 }
-
-
 
 
   public static async deletarDoenca(req: Request, res: Response) {
