@@ -30,6 +30,7 @@ export class ProdutoController {
   }
 }
 
+// listar 
   public static async listarProduto(req: Request, res: Response) {
     try {
       const produto = await ProdutoService.listarProduto();
