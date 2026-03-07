@@ -1,72 +1,30 @@
-import { DoencaRepository } from "../../repository/Doenca/doencaRepository";
-import { DoencaDTO } from "../../controller/Doenca/Dto/DoencaDto";
+import { DoencaDto } from "../../controller/dto/DoencaDto";
+import { DoencaRepository } from "../../repository/doenca/doencaRepository";
 
-export class DoencaService {
-  static alterar(id: number, dados: any) {
-    throw new Error('Method not implemented.');
+export class DoencaService { 
+  private repository: DoencaRepository;
+
+  constructor() {
+    this.repository = new DoencaRepository(); 
   }
 
-
-
-static async cadastrarDoenca(doenca: DoencaDTO): Promise<DoencaDTO> {
-  try {
-    if (!doenca.nome || doenca.nome.trim() === '') {
-      throw new Error('O campo "nome" é obrigatório.');
-    }
-
-    if (!doenca.caracteristicas || doenca.caracteristicas.trim() === '') {
-      throw new Error('O campo "caracteristica" é obrigatório.');
-    }
-
-    console.log('Doença cadastrada:', doenca);
-    await DoencaRepository.salvar(doenca);
-    return doenca;
-  } catch (error) {
-    console.error('Erro ao cadastrar doença:', error);
-    throw error;
-  }
-}
-
-
-
-  static async listarDoenca(): Promise<DoencaDTO[]> {
-    try {
-      const doenca = await DoencaRepository.listar();
-      console.log('Lista de doença:', doenca);
-      return doenca;
-    } catch (error) {
-      console.error('Erro ao listar doença:', error);
-      throw error;
-    }
+  async create(data: Omit<DoencaDto, 'id' | 'created_at' | 'updated_at'>) {
+    return await this.repository.create(data);
   }
 
-  static async alterarDoenca(id: number, dadosAtualizados: Partial<DoencaDTO>): Promise<DoencaDTO | null> {
-  try {
-    if ('nome' in dadosAtualizados && (!dadosAtualizados.nome || dadosAtualizados.nome.trim() === '')) {
-      throw new Error('O campo "nome" não pode ser vazio.');
-    }
-
-    if ('caracteristicas' in dadosAtualizados && (!dadosAtualizados.caracteristicas || dadosAtualizados.caracteristicas.trim() === '')) {
-      throw new Error('O campo "caracteristicas" não pode ser vazio.');
-    }
-
-    const doencaAlterar = await DoencaRepository.alterar(id, dadosAtualizados);
-    console.log('Doença atualizada:', doencaAlterar);
-    return doencaAlterar;
-  } catch (error) {
-    console.error('Erro ao atualizar doença:', error);
-    throw error;
+  async getAll() {
+    return await this.repository.getAll();
   }
-}
 
+  async getById(id: number) {
+    return await this.repository.getById(id);
+  }
 
-  static async deletarDoenca(id: number): Promise<void> {
-    try {
-      const sucesso = await DoencaRepository.deletar(id);
-      console.log(`Doença com ID ${id} deletada:`, sucesso);
-    } catch (error) {
-      console.error(`Erro ao deletar doença com ID ${id}:`, error);
-      throw error;
-    }
+  async update(id: number, data: Omit<DoencaDto, "id" | "created_at">) {
+    return await this.repository.update(id, data);
+  }
+
+  async delete(id: number) {
+    return await this.repository.delete(id);
   }
 }
